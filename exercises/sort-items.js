@@ -68,3 +68,6 @@ for (const btn of sortBtn) {
     sortData(btn.dataset.sortdir);
   });
 }
+
+const container = document.getElementById("main");
+const arr = Array.from(allItems);

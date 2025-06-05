@@ -43,12 +43,14 @@ const container = document.querySelector(".cardsContainer");
 const favDataStorage = JSON.parse(localStorage.getItem("favorites"));
 
 const localStorageToRed = () => {
-  for (const num of favDataStorage) {
-    const item = document.getElementById(`${num}`);
-    item.dataset.fav = "true";
-    favCards.add(num);
+  if (favDataStorage) {
+    for (const num of favDataStorage) {
+      const item = document.getElementById(`${num}`);
+      item.dataset.fav = "true";
+      favCards.add(num);
+    }
+    favToRed();
   }
-  favToRed();
 };
 
 const favToRed = () => {
