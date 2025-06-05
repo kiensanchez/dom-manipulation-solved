@@ -38,3 +38,43 @@
  */
 
 // Your code goes here...
+const favCards = new Set();
+const container = document.querySelector(".cardsContainer");
+const favDataStorage = JSON.parse(localStorage.getItem("favorites"));
+
+const localStorageToRed = () => {
+  for (const num of favDataStorage) {
+    const item = document.getElementById(`${num}`);
+    item.dataset.fav = "true";
+    favCards.add(num);
+  }
+  favToRed();
+};
+
+const favToRed = () => {
+  const allItems = document.querySelectorAll(".card");
+  for (const item of allItems) {
+    if (item.dataset.fav === "true") {
+      item.style.backgroundColor = "red";
+    } else item.style.backgroundColor = "white";
+  }
+};
+
+const callbackFunc = (e) => {
+  const item = e.target;
+
+  if (item.dataset.fav === "false") {
+    item.dataset.fav = "true";
+    favCards.add(item.id);
+    localStorage.setItem("favorites", JSON.stringify(Array.from(favCards)));
+  } else {
+    item.dataset.fav = "false";
+    favCards.delete(item.id);
+    localStorage.setItem("favorites", JSON.stringify(Array.from(favCards)));
+  }
+
+  favToRed();
+};
+
+localStorageToRed();
+container.addEventListener("click", callbackFunc);

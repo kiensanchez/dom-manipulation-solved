@@ -2,7 +2,7 @@
  * SORTING NODES WITHIN A CONTAINER
  * Please, make sure to read the following files in the exercises-info folder before you start
  * * 01 SelectNodes.md
-*/
+ */
 
 /**
  * @task
@@ -12,8 +12,7 @@
  */
 
 // Your code goes here...
-
-
+const allItems = document.querySelectorAll(".item");
 
 /**
  * @task
@@ -23,8 +22,7 @@
  * */
 
 // Your code goes here
-
-
+const main = document.querySelector("#main");
 
 /**
  * @task
@@ -34,9 +32,7 @@
  */
 
 // Your code goes here
-
-
-
+const favs = document.querySelector("#favs");
 /**
  * @task
  * Create the updateCollections(id, direction) function that follows the list of requirements:
@@ -47,8 +43,19 @@
  */
 
 // Your code goes here
+function updateCollections(id, direction) {
+  const elm = document.getElementById(`${id}`);
 
-
+  if (direction === "toMain") {
+    elm.children[0].classList.remove("fa-heart-circle-plus");
+    elm.children[0].classList.add("fa-heart-crack");
+    main.appendChild(elm);
+  } else {
+    elm.children[0].classList.remove("fa-heart-circle-plus");
+    elm.children[0].classList.add("fa-heart-crack");
+    favs.appendChild(elm);
+  }
+}
 
 /**
  * @task
@@ -65,5 +72,16 @@
  */
 
 // Your code goes here...
+for (const item of allItems) {
+  item.addEventListener("click", function () {
+    let parentId = item.parentElement.id;
+    let itemId = item.id;
+    let dir = "";
 
+    if (parentId === "main") {
+      dir = "toFavs";
+    } else dir = "toMain";
 
+    updateCollections(itemId, dir);
+  });
+}
